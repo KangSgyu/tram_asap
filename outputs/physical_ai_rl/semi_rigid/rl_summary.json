@@ -1,0 +1,85 @@
+{
+  "process": "semi_rigid",
+  "task": "pick-and-place object transfer in a tabletop manufacturing cell",
+  "physics_engine": {
+    "gravity_mps2": -9.81,
+    "table_friction": 0.82,
+    "restitution": 0.12,
+    "collision_bodies": 4,
+    "material_compliance": 0.11,
+    "contact_noise": 0.01
+  },
+  "sensor_simulation": {
+    "camera": "32x32 top-view occupancy image",
+    "lidar_rays": 24,
+    "imu_channels": 6
+  },
+  "reinforcement_learning": {
+    "policy": "two-layer neural policy",
+    "optimizer": "ASCPO-like safety-constrained cross-entropy policy search",
+    "before_after_definition": "before_rl is an untrained neural policy without the pick-and-place prior; after_rl is the trained prior-residual policy.",
+    "efficiency_methods": [
+      "reward shaping with distance progress",
+      "potential-field pick-and-place prior with neural residual learning",
+      "action smoothing",
+      "elite sampling",
+      "domain noise from material compliance/contact noise",
+      "energy and collision penalties",
+      "ASCPO-like constrained policy selection using explicit safety costs"
+    ],
+    "generations": 8,
+    "population": 12,
+    "max_steps": 120
+  },
+  "ascpo_like_safety_constraint": {
+    "safety_cost": "collision_cost + weighted_energy_cost + weighted_smoothness_cost + timeout_cost + drop_cost",
+    "safety_limit": 1.2,
+    "selection_objective": "reward - adaptive_multiplier * max(0, safety_cost - safety_limit)",
+    "adaptive_multiplier_initial": 1.2
+  },
+  "before_rl_metrics": {
+    "reward": -33.270793395148075,
+    "success_rate": 0.0,
+    "final_distance_m": 0.30124637484550476,
+    "collisions": 0.0,
+    "steps": 120.0,
+    "safety_cost": 1.4855137360474324,
+    "safety_limit": 1.2,
+    "safety_violation": 0.28551373604743246,
+    "energy_cost": 30.584059432148933,
+    "smoothness_cost": 4.563875790074235,
+    "timeout_rate": 100.0,
+    "drop_rate": 0.0
+  },
+  "after_rl_metrics": {
+    "reward": 16.93289449854847,
+    "success_rate": 100.0,
+    "final_distance_m": 0.07442101091146469,
+    "collisions": 0.0,
+    "steps": 99.0,
+    "safety_cost": 0.61382774210535,
+    "safety_limit": 1.2,
+    "safety_violation": 0.0,
+    "energy_cost": 5.298730268143117,
+    "smoothness_cost": 8.464218945708126,
+    "timeout_rate": 0.0,
+    "drop_rate": 0.0
+  },
+  "improvement": {
+    "reward_delta": 50.20368789369655,
+    "final_distance_delta_m": 0.22682536393404007,
+    "collision_delta": 0.0,
+    "safety_cost_delta": 0.8716859939420825,
+    "step_delta": 21.0
+  },
+  "outputs": {
+    "history_csv": "C:\\Users\\tjdrb\\project01\\tram_asap\\outputs\\physical_ai_rl\\semi_rigid\\rl_training_history.csv",
+    "before_after_csv": "C:\\Users\\tjdrb\\project01\\tram_asap\\outputs\\physical_ai_rl\\semi_rigid\\rl_before_after_comparison.csv",
+    "training_curve": "C:\\Users\\tjdrb\\project01\\tram_asap\\outputs\\physical_ai_rl\\semi_rigid\\rl_training_curve.png",
+    "trace_plot": "C:\\Users\\tjdrb\\project01\\tram_asap\\outputs\\physical_ai_rl\\semi_rigid\\virtual_robot_trace.png",
+    "before_after_trace": "C:\\Users\\tjdrb\\project01\\tram_asap\\outputs\\physical_ai_rl\\semi_rigid\\rl_before_after_trace.png",
+    "learned_animation": "C:\\Users\\tjdrb\\project01\\tram_asap\\outputs\\physical_ai_rl\\semi_rigid\\learned_virtual_environment.gif",
+    "camera_snapshot": "C:\\Users\\tjdrb\\project01\\tram_asap\\outputs\\physical_ai_rl\\semi_rigid\\virtual_camera_snapshot.png"
+  },
+  "paper_conclusion": "The upgraded simulation links a physics-based virtual cell, multimodal sensor observations, and reward-driven neural policy optimization. This provides an executable basis for discussing deep reinforcement learning in Physical AI manufacturing robots beyond trajectory tracking alone."
+}

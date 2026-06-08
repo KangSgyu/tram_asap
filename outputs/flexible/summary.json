@@ -1,0 +1,21 @@
+{
+  "process": "flexible",
+  "motion_source": "C:\\Users\\tjdrb\\project01\\tram_asap\\data\\raw\\SKEL\\Flexible\\Model_Hand_R.MOTION",
+  "frames": 240,
+  "epochs": 12,
+  "before": {
+    "defect_rate": 59.583333333333336,
+    "mean_error": 0.048852309584617615,
+    "max_error": 0.1159430742263794,
+    "safety_events": 186.0,
+    "malfunction_rate": 0.0
+  },
+  "after": {
+    "defect_rate": 1.6666666666666667,
+    "mean_error": 0.02053060382604599,
+    "max_error": 0.07027800381183624,
+    "safety_events": 134.0,
+    "malfunction_rate": 0.0
+  },
+  "conclusion": "The repeated dynamics-alignment loop reduced the defect rate and severe tracking excursions while the safety clamp kept the malfunction rate at 0.0% in this simulation."
+}
